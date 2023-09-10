@@ -65,9 +65,87 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/sign-in": {
+            "post": {
+                "description": "Does a sign in",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Does a sign in",
+                "parameters": [
+                    {
+                        "description": "Sign In input",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.SignInInput"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/sign-up": {
+            "post": {
+                "description": "Does a sign up",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Does a sign up",
+                "parameters": [
+                    {
+                        "description": "Sign up input",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/repositories.CreateUserInput"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
         }
     },
     "definitions": {
+        "controllers.SignInInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "repositories.CreateUserInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 3
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                }
+            }
+        },
         "services.CreateProductInput": {
             "type": "object",
             "properties": {

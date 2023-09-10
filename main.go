@@ -6,6 +6,7 @@ import (
 	"github.com/brunoeduardodev/simple-ecommerce-go/docs"
 	"github.com/brunoeduardodev/simple-ecommerce-go/internal/controllers"
 	"github.com/brunoeduardodev/simple-ecommerce-go/internal/repositories/implementations/product_gorm"
+	"github.com/brunoeduardodev/simple-ecommerce-go/internal/repositories/implementations/user_gorm"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
@@ -39,6 +40,7 @@ func main() {
 
 	db, err := gorm.Open(sqlite.Open("local.db"))
 	db.AutoMigrate(&product_gorm.ProductGormModel{})
+	db.AutoMigrate(&user_gorm.UserGormModel{})
 
 	if err != nil {
 		panic("failed to connect database")
@@ -50,13 +52,21 @@ func main() {
 
 	//
 	productRepository := product_gorm.NewProductRepositoryGormIplementation(db)
+	userRepository := user_gorm.NewUserRepositoryGormIplementation(db)
+
 	productController := controllers.NewProductController(productRepository)
+	authController := controllers.NewAuthController(userRepository)
 
 	productsRouter := router.Group("/products")
 	{
 		productsRouter.GET("", productController.List)
 		productsRouter.POST("", productController.Create)
+	}
 
+	authRouter := router.Group("")
+	{
+		authRouter.POST("/sign-in", authController.SignIn)
+		authRouter.POST("/sign-up", authController.SignUp)
 	}
 
 	router.GET("/health", controllers.Health)

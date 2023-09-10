@@ -1,8 +1,6 @@
 package product_gorm
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
@@ -12,6 +10,4 @@ type ProductGormModel struct {
 	Name        string
 	Description string
 	Price       uint
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
 }

@@ -1,4 +1,29 @@
 definitions:
+  controllers.SignInInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  repositories.CreateUserInput:
+    properties:
+      email:
+        type: string
+      name:
+        minLength: 3
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
   services.CreateProductInput:
     properties:
       description:
@@ -67,6 +92,34 @@ paths:
         "200":
           description: OK
       summary: Create Product
+  /sign-in:
+    post:
+      description: Does a sign in
+      parameters:
+      - description: Sign In input
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.SignInInput'
+      produces:
+      - application/json
+      responses: {}
+      summary: Does a sign in
+  /sign-up:
+    post:
+      description: Does a sign up
+      parameters:
+      - description: Sign up input
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/repositories.CreateUserInput'
+      produces:
+      - application/json
+      responses: {}
+      summary: Does a sign up
 securityDefinitions:
   "":
     in: header
