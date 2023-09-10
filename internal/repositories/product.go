@@ -1,6 +1,6 @@
 package repositories
 
-import "github.com/brunoeduardodev/simple-ecommerce-go/models"
+import "github.com/brunoeduardodev/simple-ecommerce-go/internal/models"
 
 type CreateProductInput struct {
 	Name        string `json:"name"`

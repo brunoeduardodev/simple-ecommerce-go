@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/brunoeduardodev/simple-ecommerce-go/repositories"
-	"github.com/brunoeduardodev/simple-ecommerce-go/views"
+	"github.com/brunoeduardodev/simple-ecommerce-go/internal/repositories"
+	"github.com/brunoeduardodev/simple-ecommerce-go/internal/views"
 )
 
 func ProductsList(repository repositories.ProductRepository) ([]views.Product, error) {

@@ -1,8 +1,8 @@
-package repositories
+package product_gorm
 
 import (
-	"github.com/brunoeduardodev/simple-ecommerce-go/models"
-
+	"github.com/brunoeduardodev/simple-ecommerce-go/internal/models"
+	"github.com/brunoeduardodev/simple-ecommerce-go/internal/repositories"
 	"gorm.io/gorm"
 )
 
@@ -10,8 +10,8 @@ type ProductRepositoryGormImplementation struct {
 	db *gorm.DB
 }
 
-func (r ProductRepositoryGormImplementation) Create(input CreateProductInput) error {
-	product := models.Product{
+func (r ProductRepositoryGormImplementation) Create(input repositories.CreateProductInput) error {
+	product := ProductGormModel{
 		Name:        input.Name,
 		Description: input.Description,
 		Price:       input.Price,
@@ -23,10 +23,10 @@ func (r ProductRepositoryGormImplementation) Create(input CreateProductInput) er
 }
 
 func (r ProductRepositoryGormImplementation) List() ([]models.Product, error) {
-	var products []models.Product
-	result := r.db.Find(&products)
+	var dbProducts []ProductGormModel
+	result := r.db.Find(&dbProducts)
 
-	return products, result.Error
+	return dbProductsToModel(dbProducts), result.Error
 
 }
 

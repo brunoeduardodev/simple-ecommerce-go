@@ -1,0 +1,75 @@
+definitions:
+  services.CreateProductInput:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+    type: object
+  views.Product:
+    description: Information of a product
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      string:
+        description: Created at here
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:4000
+info:
+  contact:
+    name: Bruno
+    url: https://github.com/brunoeduardodev
+  description: Project to study golang
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Simple Ecommerce Go
+  version: "1.0"
+paths:
+  /products:
+    get:
+      description: List all products
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/views.Product'
+            type: array
+      summary: List all products
+    post:
+      description: Create a new product
+      parameters:
+      - description: New product input
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/services.CreateProductInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Create Product
+securityDefinitions:
+  "":
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
